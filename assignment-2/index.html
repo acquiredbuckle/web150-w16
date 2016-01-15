@@ -1,0 +1,49 @@
+<html>
+    <title>Assignment 2</title>
+<body>
+<script>
+document.write("You've arrived at two doors. The doors are numbered two and three. You must make a decision to proceed. <br /><br />");
+//prompt for user input
+var firstChoice = prompt("Which door do you choose?");  
+
+// if/else conditional based on user input from prompt
+if(firstChoice == "three" || firstChoice == 3)
+{
+    
+document.write("You enter door number three. A man in a stands before you holding a sword in one hand and a book in the other. You must make a decision to proceed.");
+var secondChoice = prompt("Do you chose the book or the sword?");
+        
+        //nested conditional 
+        if(secondChoice == "sword" || secondChoice == "the sword")
+        {
+        document.write("You picked the sword. The man hates violence so he kills you. A bit hypocritical, but you're dead."); 
+            
+        }else if(secondChoice == "book" || secondChoice == "the book")
+        {
+            
+            document.write("You picked the book. The man starts reading you a story from the book that never ever ends. You're stuck here forever.");
+            
+        }else{
+            
+            document.write("<br /><br />Giving up? Okay...");
+            
+        }
+
+}else if(firstChoice == "two" || firstChoice == 2)
+{
+    
+    document.write("You enter the door numbered two. As you open the door, a wave of water rushes out. You drown. That is... unfortunate.");
+    
+}else if(firstChoice == "one" || firstChoice == 1)
+{
+    
+    document.write("You turn around then go back through door number one. Clever. You win!");
+    
+}else{
+    
+document.write("Fine, if you don't want to play...");
+    
+    }
+</script>
+</body>
+</html>
