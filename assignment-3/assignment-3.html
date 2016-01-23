@@ -1,0 +1,112 @@
+<html>
+<title>Assignment 3</title>
+<body>
+<script src="Seattle_Crime_Stats_2013.js"></script>
+<script>
+
+/*
+How many total burglaries were reported in 2013?
+  
+1) Creates a array with a sub array that contains the precinct in the first index and a default value of 0 for the second index. The second index will be used for keeping track of the burglaries for that precinct.
+2) Creates a variable for number of burglaries
+3) Then starts for loop to iterate through crime_stats array
+4) Then starts conditional to signal out Burglaries in crime_stats array
+5) Adds burglaries for that index position in crime_stats to numBurglaries variable
+6) Then start if/else if conditional to add burglaries to precincts array to track number of burglaries for each precinct 
+*/
+
+var precincts = [["N", 0], ["W", 0], ["E", 0], ["SE", 0], ["SW", 0]];
+var numBurglaries = 0;    
+for(c in crime_stats){
+    
+    if(crime_stats[c][2] == "Burglary"){
+        numBurglaries += crime_stats[c][3];
+        
+        if(crime_stats[c][1] == precincts[0][0]){
+            precincts[0][1] += crime_stats[c][3];
+        }else if(crime_stats[c][1] == precincts[1][0]){
+            precincts[1][1] += crime_stats[c][3];
+        }else if(crime_stats[c][1] == precincts[2][0]){
+            precincts[2][1] += crime_stats[c][3];     
+        }else if(crime_stats[c][1] == precincts[3][0]){
+            precincts[3][1] += crime_stats[c][3];
+        }else if(crime_stats[c][1] == precincts[4][0]){
+            precincts[4][1] += crime_stats[c][3];  
+        }
+    }
+}
+ 
+    
+/* 
+Which precinct had the most burglaries in 2013?
+
+Iterates through precincts array to determine one with highest # of burglaries 
+*/
+    
+var mostBurglaries = 0;
+for(c in precincts){
+    var Burglaries = precincts[c][1];
+    
+    if (Burglaries > mostBurglaries){
+        mostBurglaries = Burglaries;
+        var precinctWithMostBurgs = precincts[c][0];
+    }
+}
+
+    
+/* 
+What was the average number of burglaries per precinct?
+ 
+determines average number of burglaries per precinct
+*/
+
+var avgNumOfBurgs = numBurglaries / precincts.length;
+
+ 
+/*
+In which month were the fewest assaults reported? 
+
+1) Created an array with a sub array for the months and # of assualts similar to the first array. However, in this one I created a variable for months. 
+2) Start a for loop that iterates through crime_stats
+3) Then I used an if statement if the month index postion in crime_stats was higher then it would add one to the variable.
+4)Then I used an if statement to determine if that index position was an "Assault." If it was then it adds the number of assaults to the assaultsMonthly array
+*/
+    
+assaultsMonthly = [[1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0], [8,0], [9,0], [10,0], [11,0], [12,0]];
+month = 1;
+for(i = 0; i < crime_stats.length; i++){
+    if(crime_stats[i][0] > month){
+        month += 1;
+    }
+    if(crime_stats[i][2] = "Assault"){
+        assaultsMonthly[month-1][1] += crime_stats[i][3];
+    }
+}
+
+/*
+Iterates through assaultsMonthly array to determine which has the lowest # of assaults
+*/
+var leastAssaults = 0;
+for(i = 0; i < assaultsMonthly.length; i++){
+    var assaults = assaultsMonthly[i][1];
+    
+    if (assaults > leastAssaults){
+        leastAssaults = assaults;
+        var monthWithLeastAssaults = assaultsMonthly[i][0];
+    }
+}
+
+document.write("How many total burglaries were reported in 2013?   " 
+               + numBurglaries + "<br>" + "<br>");
+document.write("Which precinct had the most burglaries in 2013?  " 
+              + precinctWithMostBurgs + "<br>" + "<br>");
+document.write("What was the average number of burglaries per precinct?  "
+              + avgNumOfBurgs + "<br>" + "<br>");
+document.write("In which month were the fewest assaults reported?  "
+              + monthWithLeastAssaults + "<br>");
+    
+</script>
+
+    
+</body>
+</html>
