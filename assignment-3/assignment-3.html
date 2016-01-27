@@ -96,6 +96,10 @@ for(i = 0; i < assaultsMonthly.length; i++){
     }
 }
 
+//Translate month # to month name
+var monthsByName = ["January", "February", "March",	"April", "May",	"June",	"July",	"August", "September", "October", "November", "December"]
+var monthsTranslated = monthsByName[monthWithLeastAssaults - 1];
+
 document.write("How many total burglaries were reported in 2013?   " 
                + numBurglaries + "<br>" + "<br>");
 document.write("Which precinct had the most burglaries in 2013?  " 
@@ -103,7 +107,7 @@ document.write("Which precinct had the most burglaries in 2013?  "
 document.write("What was the average number of burglaries per precinct?  "
               + avgNumOfBurgs + "<br>" + "<br>");
 document.write("In which month were the fewest assaults reported?  "
-              + monthWithLeastAssaults + "<br>");
+              + monthsTranslated + "<br>");
     
 </script>
 
