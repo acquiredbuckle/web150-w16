@@ -84,13 +84,26 @@ for(i = 0; i < crime_stats.length; i++){
 }
 
 /*
-Iterates through assaultsMonthly array to determine which has the lowest # of assaults
+Iterates through assaultsMonthly array to determine which has the highest # of assaults
 */
-var leastAssaults = 0;
+var mostAssaults = 0;
 for(i = 0; i < assaultsMonthly.length; i++){
     var assaults = assaultsMonthly[i][1];
     
-    if (assaults > leastAssaults){
+    if (assaults > mostAssaults){
+        mostAssaults = assaults;
+        var monthWithMostAssaults = assaultsMonthly[i][0];
+    }
+}
+/* 
+Uses mostAssualts to set the max
+Then iterates through assaultsMonthly array to determine which has the lowest # of assaults
+*/
+var leastAssaults = mostAssaults;
+for(i = 0; i < assaultsMonthly.length; i++){
+    var assaults = assaultsMonthly[i][1];
+    
+    if (assaults < leastAssaults){
         leastAssaults = assaults;
         var monthWithLeastAssaults = assaultsMonthly[i][0];
     }
@@ -108,7 +121,7 @@ document.write("What was the average number of burglaries per precinct?  "
               + avgNumOfBurgs + "<br>" + "<br>");
 document.write("In which month were the fewest assaults reported?  "
               + monthsTranslated + "<br>");
-    
+
 </script>
 
     
