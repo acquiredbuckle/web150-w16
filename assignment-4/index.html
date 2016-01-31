@@ -1,0 +1,103 @@
+<html>
+<title>Assignment 4</title>
+<body>
+<script src="Seattle_Crime_Stats_2013_b.js"></script>
+<script>
+
+//counter for total burglaries
+numBurglaries = 0;
+
+//array to hold precincts
+precincts = [];
+    
+//array to hold objects to track burglaries by precinct
+burglaries_by_precinct = [];
+
+//loop through each (incident report) object in crime_stats
+for(var crimeReport in crime_stats){
+    //if object's precinct value not in precinct array, step into if statement
+    if(precincts.indexOf(crime_stats[crimeReport].precinct) == -1){
+        //push precinct into precinct array
+        precincts.push(crime_stats[crimeReport].precinct);
+        
+        //create object in burglaries_by_precinct array
+        precinct = crime_stats[crimeReport].precinct;
+        burglaries_by_precinct.push({precinct: precinct, burglaries: 0}); 
+    } 
+    //Step into if statement if object's crime value matches
+    if(crime_stats[crimeReport].crime == "Burglary"){
+        numBurglaries += crime_stats[crimeReport].count;
+        
+        /*
+        loop through burglaries_by_precinct
+        Check if the current crime_stats object's precinct value matches
+        then add the incident count to that burglaries value
+        */
+        precinct = crime_stats[crimeReport].precinct;
+        for(var p in burglaries_by_precinct){
+            if(burglaries_by_precinct[p].precinct == precinct){
+            burglaries_by_precinct[p].burglaries += crime_stats[crimeReport].count;
+            }
+        }
+    }
+}
+//use the length of precincts array to compute average # of burglaries
+avgNumOfBurglaries = numBurglaries / precincts.length;
+
+//loops through burglaries_by_precinct to track precinct with most burglaries
+mostBurglaries = 0;
+for(var p in burglaries_by_precinct){
+    var count = burglaries_by_precinct[p].burglaries;
+    if(count > mostBurglaries){
+        mostBurglaries = count;
+        precinctWithMostBurglaries = burglaries_by_precinct[p].precinct;
+    }  
+}
+
+//creates array of objects to track assaults monthly
+assaults_by_month = [{month: 1, assaults:0}, {month: 2, assaults:0}, {month: 3, assaults:0}, {month: 4, assaults:0}, {month: 5, assaults:0}, {month: 6, assaults:0}, {month: 7, assaults:0}, {month: 8, assaults:0}, {month: 9, assaults:0}, {month: 10, assaults:0}, {month: 11, assaults:0}, {month: 12, assaults:0}]
+
+//loop through each (incident report) object in crime_stats
+for(var crimeReport in crime_stats){
+    ////Step into if statement if object's crime value matches
+    if(crime_stats[crimeReport].crime == "Assault"){   
+        
+        /*
+        loop through assaults_by_month
+        Check the current crime_stats object's month value matches 
+        If it matches current assaults_by_month's month value
+        Then add the count value in crime_stats object to current assaults value
+        */
+        month = crime_stats[crimeReport].month;
+        for(var a in assaults_by_month){
+            if(assaults_by_month[a].month == month){
+            assaults_by_month[a].assaults += crime_stats[crimeReport].count;
+            }
+        }
+    }
+}
+ 
+//loops through assaults_by_month to track month with least assaults
+leastAssaults = 10000;
+for(var a in assaults_by_month){
+    var count = assaults_by_month[a].assaults;
+    if(count < leastAssaults){
+        leastAssaults = count;
+        monthWithLeastAssaults = assaults_by_month[a].month;
+    }  
+}
+
+//array with full month names
+months =["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    
+document.write("How many total burglaries were reported in 2013? " + numBurglaries + "<br><br>")
+document.write("What was the average number of burglaries per precinct? " + avgNumOfBurglaries + "<br><br>")
+document.write("Which precinct had the most burglaries in 2013? " + precinctWithMostBurglaries  + "<br><br>")
+document.write("In which month were the fewest assaults reported? " + months[monthWithLeastAssaults - 1])
+      
+
+
+</script>   
+</body>
+</html>
+

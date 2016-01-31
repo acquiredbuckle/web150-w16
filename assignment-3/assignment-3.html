@@ -79,7 +79,7 @@ for(i = 0; i < crime_stats.length; i++){
         month += 1;
     }
     if(crime_stats[i][2] = "Assault"){
-        assaultsMonthly[month-1][1] += crime_stats[i][3];
+        assaultsMonthly[month - 1][1] += crime_stats[i][3];
     }
 }
 
@@ -111,7 +111,7 @@ for(i = 0; i < assaultsMonthly.length; i++){
 
 //Translate month # to month name
 var monthsByName = ["January", "February", "March",	"April", "May",	"June",	"July",	"August", "September", "October", "November", "December"]
-var monthsTranslated = monthsByName[monthWithLeastAssaults - 1];
+var monthsTranslated = monthsByName[monthWithLeastAssaults];
 
 document.write("How many total burglaries were reported in 2013?   " 
                + numBurglaries + "<br>" + "<br>");
