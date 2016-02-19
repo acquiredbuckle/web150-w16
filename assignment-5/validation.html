@@ -40,7 +40,7 @@ function validateForm(myForm) {
 function isValidPassword(password){
     //returns false if not minimum length of 8 characters
     minLength = 8;
-    if(!password.length >= minLength){
+    if(password.length < minLength){
         return false
     //returns false if not atleast one uppercase character
     }else if(!/[A-Z]/.test(password)){
