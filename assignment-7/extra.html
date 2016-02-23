@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    </head>
+    <style>
+        .over {
+            background-color: orange;
+        }
+        
+        .selected {
+            background-color: green;
+        }
+        .evenColors {
+            background-color: aqua;
+        }
+        .oddColors {
+            background-color: indianred;
+        }
+        
+    </style>
+    <body>
+        <div id="roles"><b>Roles: </b></div>
+        <div id="houses"><b>Houses: </b></div>
+        <div id="alignment"><b>Alignment: </b></div>
+        <table border='1'><tr class="head"><th>Name</th><th>Role</th><th>House</th><th>Gender</th><th>Aligns</th></tr></table>
+        
+    <button>Reset</button>
+        
+    </body>
+        
+        <script>
+        var characters = [
+        {name:"Albus Dumbledore", role:"staff", house:"Gryffindor",gender:"male",alignment:"good"},    
+        {name:"Nymphadora Tonks", role:"", house:"Hufflepuff",gender:"female",alignment:"good"},    
+        {name:"Ron Weasley", role:"student", house:"Gryffindor",gender:"male",alignment:"good"},    
+        {name:"Ginny Weasley", role:"student", house:"Gryffindor",gender:"female",alignment:"good"},    
+        {name:"Hermione Granger", role:"student", house:"Gryffindor",gender:"female",alignment:"good"},    
+        {name:"Mad-eye Moody", role:"staff", house:"",gender:"male",alignment:"good"},    
+        {name:"Prof McGonagall", role:"staff", house:"Gryffindor",gender:"female",alignment:"good"},    
+        {name:"Harry Potter", role:"student", house:"Gryffindor",gender:"male",alignment:"good"},    
+        {name:"Draco Malfoy", role:"student", house:"Slytherin",gender:"male",alignment:"evil"},    
+        {name:"Hagrid", role:"staff", house:"Gryffindor",gender:"male",alignment:"good"},    
+        {name:"Luna Lovegood", role:"student", house:"Ravenclaw",gender:"female",alignment:"good"},    
+        {name:"Voldemort", role:"", house:"Slytherin",gender:"male",alignment:"evil"},    
+        {name:"Bellatrix Lestrange", role:"", house:"Slytherin",gender:"female",alignment:"evil"},           
+        {name:"Severus Snape", role:"staff", house:"Slytherin",gender:"male",alignment:""},    
+        {name:"Dobby", role:"", house:"",gender:"male",alignment:"good"}
+        ];
+        
+
+        // buttons
+        var roles = [];
+        var houses = [];
+        var aligns = [];
+        for (row in characters) {
+            var role = characters[row].role;
+            var house = characters[row].house;
+            var alignment = characters[row].alignment;
+            if (role && roles.indexOf(role) == -1) {
+                roles.push(role);
+            }
+            if (house && houses.indexOf(house) == -1) {
+                houses.push(house);
+            } 
+            if (alignment && aligns.indexOf(alignment) == -1) {
+                aligns.push(alignment);
+            } 
+        }
+        
+        for (row in roles) {
+            $("#roles").append("<button>" +roles[row]+ "</button>");
+        }
+        for (row in houses) {
+            $("#houses").append("<button>" +houses[row]+ "</button>");
+        } 
+        for (row in aligns) {
+            $("#alignment").append("<button>" +aligns[row]+ "</button>");
+        }  
+        
+        for (row in characters) {
+            $("table").append("<tr><td>" +characters[row].name+ "</td><td>" +characters[row].role+ "</td><td>" +characters[row].house+ "</td><td>" +characters[row].gender+ "</td><td>" +characters[row].alignment+ "</td></tr>");
+        }
+        $(document).ready(function(){
+            $("tr:even").addClass("evenColors");
+            $("tr:odd").addClass("oddColors");
+            var buttonsClicked = [];
+            var buttons = $('button');
+
+            buttons.on('mouseenter', function(e) {
+                var $this = $(this);
+                $this.addClass("over");
+            });
+        
+            buttons.on('mouseleave', function() {
+                var $this = $(this);
+                $this.removeClass("over");
+            });
+        
+            buttons.on('click', function() {
+                //$(".selected").removeClass("selected");
+                var $this = $(this);
+                $this.addClass("selected");
+                buttonsClicked.push($this.text());
+                 
+                
+                if ($this.text() == 'Reset') {
+                    buttonsClicked = [];
+                    $(".selected").removeClass("selected");
+                    $("tr").removeClass("evenColors oddColors selectedRow");
+                    $("tr").show();
+                    $("tr:even").addClass("evenColors");
+                    $("tr:odd").addClass("oddColors");
+                }else{
+                    $("tr").removeClass("evenColors oddColors");
+                    toggleRows(buttonsClicked);
+                    $("tr:visible:even").addClass("evenColors");
+                    $("tr:visible:odd").addClass("oddColors");
+                }    
+            });
+
+
+        });
+
+        function toggleRows(buttonsClicked) {
+            for (i = 0; i < buttonsClicked.length; i++) { 
+                $("tr").filter(":contains('" + buttonsClicked[i] +"')").addClass("selectedRow");
+            }
+            $("tr").hide();
+            $(".selectedRow, .head").show();
+           
+        }
+    
+
+        </script>
+</html>
