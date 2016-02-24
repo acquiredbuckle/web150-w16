@@ -19,13 +19,15 @@
         
     </style>
     <body>
+        <!-- divs for buttons -->
         <div id="roles"><b>Roles: </b></div>
         <div id="houses"><b>Houses: </b></div>
         <div id="alignment"><b>Alignment: </b></div>
+        <button>Reset</button><!-- reset button --> 
+        
+        <!-- start table -->
         <table border='1'><tr class="head"><th>Name</th><th>Role</th><th>House</th><th>Gender</th><th>Aligns</th></tr></table>
-        
-    <button>Reset</button>
-        
+              
     </body>
         
         <script>
@@ -81,10 +83,16 @@
             $("table").append("<tr><td>" +characters[row].name+ "</td><td>" +characters[row].role+ "</td><td>" +characters[row].house+ "</td><td>" +characters[row].gender+ "</td><td>" +characters[row].alignment+ "</td></tr>");
         }
         $(document).ready(function(){
+            //add colors to rows
             $("tr:even").addClass("evenColors");
             $("tr:odd").addClass("oddColors");
-            var buttonsClicked = [];
+            
+            $("tr").addClass('row');
+            
             var buttons = $('button');
+            
+            //array to track which buttons are selected
+            var buttonsClicked = [];
 
             buttons.on('mouseenter', function(e) {
                 var $this = $(this);
@@ -97,22 +105,26 @@
             });
         
             buttons.on('click', function() {
-                //$(".selected").removeClass("selected");
                 var $this = $(this);
                 $this.addClass("selected");
+                
+                //add button text to array
                 buttonsClicked.push($this.text());
                  
                 
-                if ($this.text() == 'Reset') {
+                if ($this.text() == 'Reset') {//if reset button clicked, resets to defaults
                     buttonsClicked = [];
+                    $("tr").css("opacity","");
                     $(".selected").removeClass("selected");
-                    $("tr").removeClass("evenColors oddColors selectedRow");
-                    $("tr").show();
+                    $("tr").removeClass("evenColors oddColors selectedRow row");
                     $("tr:even").addClass("evenColors");
                     $("tr:odd").addClass("oddColors");
+                    $("tr").addClass('row');
                 }else{
                     $("tr").removeClass("evenColors oddColors");
                     toggleRows(buttonsClicked);
+                    
+                    //add colors to only visible rows
                     $("tr:visible:even").addClass("evenColors");
                     $("tr:visible:odd").addClass("oddColors");
                 }    
@@ -122,12 +134,15 @@
         });
 
         function toggleRows(buttonsClicked) {
+            //iterate through array to filter which rows are selected
             for (i = 0; i < buttonsClicked.length; i++) { 
-                $("tr").filter(":contains('" + buttonsClicked[i] +"')").addClass("selectedRow");
+                $("tr").filter(":contains('" + buttonsClicked[i] +"')").removeClass('row').addClass("selectedRow").fadeTo('fast',1);
             }
-            $("tr").hide();
-            $(".selectedRow, .head").show();
-           
+            
+            //remove row class from head, then fade non-selected rows
+            $(".head").removeClass("row");
+            $(".row").fadeTo("slow", 0.3);
+            
         }
     
 
