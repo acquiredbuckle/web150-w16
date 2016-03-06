@@ -1,0 +1,116 @@
+<html>
+    <head>
+    </head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    
+var canvas = document.getElementById('canvas');  //canvas element
+var context = canvas.getContext("2d");
+
+//spell out canvas with moveTo(), LineTo(), stroke(), and strokeStyle()
+var canvas = function(){
+    
+    context.beginPath()
+    context.moveTo(75,200);
+    context.lineTo(50, 200);
+    context.lineTo(50, 225);
+    context.lineTo(75, 225);
+    context.strokeStyle = "VIOLET";
+    context.stroke();
+    context.closePath();
+    
+    context.beginPath()
+    context.moveTo(100,225);
+    context.lineTo(100, 200);
+    context.lineTo(125, 200);
+    context.lineTo(125, 225);
+    context.moveTo(125,212.5);
+    context.lineTo(100, 212.5);
+    context.strokeStyle = "INDIGO";
+    context.stroke();
+    context.closePath();
+    
+    context.beginPath()
+    context.moveTo(150,225);
+    context.lineTo(150,200);
+    context.lineTo(175, 200);
+    context.lineTo(175, 225);
+    context.strokeStyle = "blue";
+    context.stroke(); 
+    context.closePath();
+    
+    context.beginPath()
+    context.moveTo(200,200);
+    context.lineTo(212.5, 225);
+    context.lineTo(225, 200);
+    context.strokeStyle = "green";
+    context.stroke(); 
+    context.closePath();
+    
+    context.beginPath()
+    context.moveTo(250,225);
+    context.lineTo(250, 200);
+    context.lineTo(275, 200);
+    context.lineTo(275, 225);
+    context.moveTo(275,212.5);
+    context.lineTo(250, 212.5);
+    context.strokeStyle = "yellow";
+    context.stroke();
+    context.closePath();
+    
+    context.beginPath()
+    context.moveTo(300,225);
+    context.lineTo(325, 225);
+    context.lineTo(325, 212.5);
+    context.lineTo(300, 212.5);
+    context.lineTo(300, 200);
+    context.lineTo(325, 200);
+    context.moveTo(325,200);
+    context.strokeStyle = "orange";
+    context.stroke();
+    context.closePath();
+    
+    //exclamation point made with fillRect() and arc()
+    context.beginPath()
+    context.fillRect(350, 200, 5, 20);
+    context.moveTo(355,225);
+    context.arc(352.5, 225, 2, 0, Math.PI * 2);
+    context.strokeStyle = "red";
+    context.fillStyle = "red";
+    context.fill();
+    context.stroke()
+    context.closePath();
+}
+canvas();
+
+//random squares. demos save and restore. todo: something more interesting
+  context.fillStyle = "violet";
+  context.fillRect(425, 250, 25, 25);
+  context.save();                 
+       
+  context.fillStyle = "indigo";    
+  context.fillRect(425, 230, 20, 20);                  
+  context.save();
+      
+  context.restore();               
+  context.fillRect(425, 205, 10, 10);   
+
+  context.restore();               
+  context.fillRect(425, 215, 15, 15);
+
+//animate and rotate
+var animate = function() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.rotate((Math.random()*30)*180/Math.PI);
+    canvas();
+    setTimeout(animate, 100);
+}
+
+animate();
+
+    
+
+</script>
+</body>
+</html>
