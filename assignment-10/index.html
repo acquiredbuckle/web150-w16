@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    </head>
+<body>
+    <h2>Job Application</h2><hr>
+    <form id="myForm" onsubmit="return validateForm(this);">
+<table>        
+        <tr><td>Name:</td><td> <input type="text" name="fullname" pattern="([a-zA-Z]{2,})\s([a-zA-Z]{2,})" placeholder="Firstname Lastname"></td></tr>
+        <tr><td>Birthdate:</td><td> <input type="?" name="birthdate" placeholder="mm/dd/yyyy"></td></tr>
+        <tr><td>Phone:</td><td> <input type="text" name="phone" placeholder="(555)555-5555">
+        <span class="error"></span></td></tr>
+        <tr><td>Zipcode:</td><td> <input type="text" name="zip" placeholder="54321"></td></tr>
+        <tr><td>Profile:</td><td> <textarea rows="4" cols="30" name="profile"></textarea> </td></tr>
+</table>
+<input type="submit" value="Register">
+    </form>
+
+<hr><div id="message">
+<p class="javascript"></p>
+<p class="jquery"></p>  
+<p class="js"></p>  
+</div>
+
+<script> 
+function validateForm(myForm) {
+    
+    var phoneReg = /^\(([0-9]{3})\)\s([0-9]{3})\-([0-9]{4})/; 
+    var phone = $('input[name="phone"]').val();
+    
+    var zipReg = /^([0-9]{5})/;
+    var zip = $('input[name="zip"]').val();
+    
+    var birthdateReg = /^([0-9]{1,2})\/([0-9]{2})\/([0-9]{4})$/;
+    var formBirthdate = $('input[name="birthdate"]').val(); 
+    var birthdate =  formBirthdate.split("/");
+    var currentYear = (new Date).getFullYear();
+    
+    
+    if (!zipReg.test(zip)){
+        $("#message").html("<p>Zipcode Input Error: Please enter only numbers in the format nnnnn</p>"); 
+        return false;
+    }else if (!phoneReg.test(phone)){
+        $("#message").html("<p>Phone Input Error: Please enter only numbers and punctuation in the format (nnn) nnn-nnnn");
+        return false;
+    }else if (!birthdateReg.test(formBirthdate)){
+        $("#message").html("<p>Birthdate Input Error: Please enter only numbers and punctuation in the format mm/dd/yyyy</p>");
+        return false;
+    }else if(birthdateReg.test(formBirthdate)){
+        if(currentYear - birthdate[2] <= 17){
+             $("#message").html("<p>You must be at least 18 years of age.</p>")
+             return false;
+        }
+    }
+    
+
+var profile = $('textarea[name="profile"]').val();
+var profileArray = profile.split(" ");
+    
+var javascriptReg = /javascript/i;
+var jqueryReg = /jquery/i;
+var jsReg = /js/i;
+    
+var javascript = 0; 
+var jquery = 0; 
+var js = 0; 
+for (var i = 0; i < profileArray.length; i++){
+    if(javascriptReg.test(profileArray[i])){
+        javascript += 1;
+    }else if(jqueryReg.test(profileArray[i])){
+        jquery += 1;
+    }else if(jsReg.test(profileArray[i])){
+        js += 1;
+    }
+}
+$("#message").html('<p>Javascript: ' + javascript + '<br />'
+                   + 'jQuery: ' + jquery + '<br />'
+                   + 'JS: ' + js + '</p>');
+
+
+ return false;
+} 
+
+    </script>
+  
+
+</body>
+</html>
