@@ -117,6 +117,7 @@
                 if ($this.text() == 'Reset') {//if reset button clicked, resets to defaults
                     buttonsClicked = [];
                     $("tr").css("opacity","");
+                    $("tr").show();
                     $(".selected").removeClass("selected");
                     $("tr").removeClass("evenColors oddColors selectedRow row");
                     $("tr:even").addClass("evenColors");
